@@ -1,0 +1,10 @@
+# Ignore everything by default
+*
+
+# Whitelist directories and files
+!pdfs/
+!pdfs/**
+!zip_files/
+!zip_files/**
+!README.md
+!.gitignore
