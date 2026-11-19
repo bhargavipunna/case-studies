@@ -1,0 +1,46 @@
+\section{Problem Statement and Network Infrastructure Architecture}
+
+\subsection{Operational Network Challenges}
+The deployment and maintenance of Network Troubleshooting and Packet Analysis in complex organizational topologies encounters Intermittent MTU black-hole drops due to blocked ICMP Type 3 Code 4 packets, misconfigured switch duplex mismatches, and transient microburst buffer overflow.. The complete system architecture must maintain high packet delivery reliability, protect data in transit via cryptographic primitives, and deliver deterministic response latency.
+
+\subsection{System Topology and Engineering Pipeline}
+Figure~\ref{fig:pipeline} depicts the modular network architecture and diagnostic pipeline designed for this case study. It spans Ingress Filtering, Deep Packet Inspection, Transport Optimization, Routing Convergence, and Telemetry Monitoring.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{\begin{tikzpicture}[
+    block/.style={rectangle, draw=black!80, fill=red!8, thick, rounded corners, minimum height=1.1cm, text width=2.5cm, font=\footnotesize},
+    arr/.style={-{Stealth[length=2mm]}, thick}
+]
+\node[block, align=center] (n1) at (0,0) {1. User Issue Report\\Application Hang / Slow Page};
+\node[block, align=center] (n2) at (3.2,0) {2. Layer 1/2 Verification\\Link State, Duplex \& CRC};
+\node[block, align=center] (n3) at (6.4,0) {3. ICMP Reachability\\Ping Sweep \& RTT Jitter};
+\node[block, align=center] (n4) at (9.6,0) {4. Path Trace (Traceroute)\\TTL Expiration Hops};
+\node[block, align=center] (n5) at (12.8,0) {5. Wireshark Capture\\pcap Packet Dissection};
+\node[block, align=center] (n6) at (12.8,-2.2) {6. TCP Sequence Analysis\\Dup ACKs \& Out-of-Order};
+\node[block, align=center] (n7) at (9.6,-2.2) {7. Path MTU Discovery\\Don't Fragment (DF) Bit Probe};
+\node[block, align=center] (n8) at (6.4,-2.2) {8. Root Cause Diagnosis\\MTU Black Hole / Bad Cable};
+\node[block, align=center] (n9) at (3.2,-2.2) {9. Corrective Fix Applied\\Clamp MSS \& Replace Drop};
+\node[block, align=center] (n10) at (0,-2.2) {10. Verified Recovery\\Zero Drops / Pristine Speed};
+\draw[arr] (n1) -- (n2);
+\draw[arr] (n2) -- (n3);
+\draw[arr] (n3) -- (n4);
+\draw[arr] (n4) -- (n5);
+\draw[arr] (n5) -- (n6);
+\draw[arr] (n6) -- (n7);
+\draw[arr] (n7) -- (n8);
+\draw[arr] (n8) -- (n9);
+\draw[arr] (n9) -- (n10);
+\end{tikzpicture}}
+\caption{System Architecture and Engineering Pipeline for Network Troubleshooting and Packet Analysis.}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Architectural Component Specifications}
+\begin{enumerate}
+  \item \textbf{Border Routing \& ACL Layer:} Filters spoofed IP blocks (BCP 38 anti-spoofing) and applies coarse stateless line-rate access lists at the WAN perimeter.
+  \item \textbf{Stateful Inspection \& Threat Engine:} Maintains bi-directional connection tracking tables, inspecting Layer 4 flags and protocol headers for anomalies.
+  \item \textbf{Deep Packet Inspection (DPI)::} Snort / Suricata engine parses application-layer payloads against rule databases, extracting malicious shellcode patterns.
+  \item \textbf{Core Switching \& Routing Fabric:} Multi-layer Gigabit switches enforce 802.1Q VLAN isolation, Spanning Tree (RSTP), and OSPF area routing.
+  \item \textbf{Diagnostic Telemetry Sensor:} Continuous NetFlow/sFlow probes and mirrored SPAN ports deliver real-time metrics to network monitoring systems.
+\end{enumerate}

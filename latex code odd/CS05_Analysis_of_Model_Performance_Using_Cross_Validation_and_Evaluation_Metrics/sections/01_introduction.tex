@@ -1,0 +1,16 @@
+\section{Introduction}
+
+\subsection{Importance and Relevance to Machine Learning and Society}
+The continuous expansion of data-intensive systems across healthcare, finance, cyber-infrastructure, and autonomous engineering has elevated statistical machine learning from theoretical interest to an indispensable societal pillar \cite{hastie2009}. Modern computational environments frequently operate within high-dimensional regimes where the number of measurement parameters $p$ rivals or drastically exceeds the number of empirical observations $n$. Under such conditions, classical unconstrained parameter estimation methods fail due to mathematical singularity, multicollinearity, and catastrophic overfitting.
+
+In this case study, we investigate \textbf{Analysis of Model Performance Using Cross-Validation and Evaluation Metrics}, situated within the operational reality of rigorous model assessment and benchmarking across imbalanced financial fraud and loan default datasets, investigating data leakage and cross-validation variance. When machine learning models are deployed in safety-critical domains---such as diagnosing cardiovascular conditions, establishing automated loan risk, or predicting material degradation---model generalization, numerical stability, and bias-variance equilibrium are imperative \cite{breiman2001}. Unstable models exhibiting wild swings under minor sample permutations cannot be audited, verified, or ethically entrusted with life-altering determinations.
+
+\subsection{Objectives of the Case Study Analysis}
+The primary engineering and analytical objectives of this investigation are:
+\begin{itemize}
+  \item To establish the rigorous mathematical formulation governing parameter estimation, loss minimization, and regularization mechanisms within the framework of Analysis of Model Performance Using Cross-Validation and Evaluation Metrics.
+  \item To analyze the operational bottlenecks associated with Information leakage caused by feature scaling prior to CV fold partitioning, deceptive accuracy metrics under severe class imbalance ($99\%$ negative class), and high variance of Leave-One-Out Cross-Validation (LOOCV)., demonstrating failure modes of unconstrained baselines.
+  \item To conduct extensive empirical validation across benchmark datasets, comparing training, cross-validation, and out-of-sample generalization performance.
+  \item To examine the trade-offs between computational complexity, predictive accuracy, and interpretability using standardized statistical metrics.
+  \item To map the technical outcomes directly to ABET Program Outcomes and the United Nations Sustainable Development Goals, establishing societal relevance.
+\end{itemize}

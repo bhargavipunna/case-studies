@@ -1,12 +1,46 @@
 # Academic Case Studies - Vardhaman College of Engineering
 
-This repository contains the complete case study reports (PDFs) and Overleaf-ready LaTeX packages (ZIP files) for the 35 case studies specified in **Annexure 13 (CSM A.Y. 2022–2023 Even)**.
+This repository contains the complete case study reports (PDFs) and LaTeX source packages for:
+1. **Annexure 13 (CSM A.Y. 2022–2023 Even)**: 35 case studies in `pdfs/` and `zip_files/`.
+2. **Annexure 13 (CSM A.Y. 2022–2023 Odd)**: 25 case studies in `pdf odd/` and `latex code odd/`.
 
 ## Directory Structure
-- **`pdfs/`**: Standalone, fully compiled PDF reports (14–16 pages each) formatted with official title pages, tables of contents, figures, tables, mathematical formulations, PO/PSO mappings, SDG targets, and references.
-- **`zip_files/`**: Self-contained ZIP packages for each case study (`config.tex`, `main.tex`, `references.bib`, `images/logo.png`, `sections/*.tex`, and `main.pdf`), ready for direct upload to Overleaf.
+- **`pdf odd/`**: Compiled standalone academic PDF reports for all 25 Odd semester case studies (A.Y. 2022–2023 Odd).
+- **`latex code odd/`**: 25 modular LaTeX source packages (`main.tex`, `config.tex`, `references.bib`, TikZ architecture diagrams, and sections) for the Odd semester.
+- **`pdfs/`**: Standalone, fully compiled PDF reports for Even semester case studies.
+- **`zip_files/`**: Self-contained Overleaf-ready ZIP packages for Even semester case studies.
 
-## Case Studies Catalog
+## Odd Semester Case Studies Catalog (A.Y. 2022–2023 Odd)
+
+| Code | Title | Course & Code | Faculty Guide | Semester |
+| :---: | :--- | :--- | :--- | :---: |
+| **CS01** | A Comparative Study of Linear Regression and Ridge Regression in High Dimensional Data | Foundations of Machine Learning (A7704) | Dr. JAGADISH R M | II B.Tech I Sem |
+| **CS02** | Bias-Variance Tradeoff Analysis in Polynomial Regression Models | Foundations of Machine Learning (A7704) | Dr. JAGADISH R M | II B.Tech I Sem |
+| **CS03** | Logistic Regression for Binary Classification: Theoretical Foundations and Practical Evaluation | Foundations of Machine Learning (A7704) | Dr. JAGADISH R M | II B.Tech I Sem |
+| **CS04** | Comparative Study of Classification Algorithms for Early Disease Risk Prediction | Foundations of Machine Learning (A7704) | Dr. JAGADISH R M | II B.Tech I Sem |
+| **CS05** | Analysis of Model Performance Using Cross-Validation and Evaluation Metrics | Foundations of Machine Learning (A7704) | Dr. JAGADISH R M | II B.Tech I Sem |
+| **CS06** | Smart Agriculture Monitoring System Using IoT Sensors | Introduction to IoT (A7703) | Mr. U SRINIVAS RAO | II B.Tech I Sem |
+| **CS07** | IoT-Based Smart Traffic Management System | Introduction to IoT (A7703) | Mr. U SRINIVAS RAO | II B.Tech I Sem |
+| **CS08** | IoT-Based Smart Health Monitoring System | Introduction to IoT (A7703) | Mr. U SRINIVAS RAO | II B.Tech I Sem |
+| **CS09** | IoT-Based Air Quality Monitoring System | Introduction to IoT (A7703) | Mr. U SRINIVAS RAO | II B.Tech I Sem |
+| **CS10** | Industrial Equipment Monitoring Using IoT | Introduction to IoT (A7703) | Mr. U SRINIVAS RAO | II B.Tech I Sem |
+| **CS11** | Predictive Data Analytics for Student Academic Performance Evaluation | Data Analytics (A6707) | Mr. C SATYA KUMAR | III B.Tech I Sem |
+| **CS12** | Healthcare Data Analytics for Disease Prediction and Early Diagnosis | Data Analytics (A6707) | Mr. C SATYA KUMAR | III B.Tech I Sem |
+| **CS13** | Retail Sales Analysis and Demand Forecasting | Data Analytics (A6707) | Mr. C SATYA KUMAR | III B.Tech I Sem |
+| **CS14** | Social Media Sentiment Analysis | Data Analytics (A6707) | Mr. C SATYA KUMAR | III B.Tech I Sem |
+| **CS15** | Data Visualization and Dashboard Development for Business Insights | Data Analytics (A6707) | Mr. C SATYA KUMAR | III B.Tech I Sem |
+| **CS16** | Deep Learning-Based Medical Image Classification for Early Disease Detection | Deep Learning and Neural Networks (A6708) | Ms. JYOTHI | III B.Tech I Sem |
+| **CS17** | Recurrent Neural Networks for Time Series Forecasting in Energy Consumption | Deep Learning and Neural Networks (A6708) | Ms. JYOTHI | III B.Tech I Sem |
+| **CS18** | Time Series Forecasting Using LSTM Networks | Deep Learning and Neural Networks (A6708) | Ms. JYOTHI | III B.Tech I Sem |
+| **CS19** | Object Detection Using Deep Learning | Deep Learning and Neural Networks (A6708) | Ms. JYOTHI | III B.Tech I Sem |
+| **CS20** | Image Denoising Using Autoencoders | Deep Learning and Neural Networks (A6708) | Ms. JYOTHI | III B.Tech I Sem |
+| **CS21** | Network Security Analysis: Firewall and Intrusion Detection Systems | Fundamentals of Computer Networks (A6710) | Mr. BHAWANI SANKAR PANIGRAHI | III B.Tech I Sem |
+| **CS22** | Analysis of TCP and UDP Protocol Performance | Fundamentals of Computer Networks (A6710) | Mr. BHAWANI SANKAR PANIGRAHI | III B.Tech I Sem |
+| **CS23** | Network Security and Threat Mitigation | Fundamentals of Computer Networks (A6710) | Mr. BHAWANI SANKAR PANIGRAHI | III B.Tech I Sem |
+| **CS24** | Network Troubleshooting and Packet Analysis | Fundamentals of Computer Networks (A6710) | Mr. BHAWANI SANKAR PANIGRAHI | III B.Tech I Sem |
+| **CS25** | Routing Protocol Selection for a Multi-Department Network | Fundamentals of Computer Networks (A6710) | Mr. BHAWANI SANKAR PANIGRAHI | III B.Tech I Sem |
+
+## Even Semester Case Studies Catalog (A.Y. 2022–2023 Even)
 
 | S.No | Title | Course | Guide / Faculty |
 |:---:|:---|:---|:---|

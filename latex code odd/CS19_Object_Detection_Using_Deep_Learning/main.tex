@@ -1,0 +1,108 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- packages ----------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx,array}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage[font=small,labelfont=bf,skip=6pt]{caption}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\usepackage{titlesec}
+\usepackage[nottoc]{tocbibind}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{longtable}
+
+% ---------- user configuration ----------
+\input{config}
+
+\usepackage[hidelinks,pdftitle={\ReportTitle},pdfauthor={\StudentNames}]{hyperref}
+
+% ---------- layout ----------
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep}
+\setlist[itemize]{itemsep=5pt,topsep=6pt,leftmargin=1.6em}
+\setlist[enumerate]{itemsep=5pt,topsep=6pt,leftmargin=1.8em}
+\renewcommand{\arraystretch}{1.25}
+\setcounter{tocdepth}{2}
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+\newcommand{\sectionbreak}{\clearpage}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+\graphicspath{{images/}}
+\bibliographystyle{IEEEtranN}
+
+\renewcommand{\topfraction}{.9}
+\renewcommand{\textfraction}{.1}
+\renewcommand{\floatpagefraction}{.8}
+
+% ---------- shorthands ----------
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\SST}{SST}
+\newcommand{\T}{^{\mathsf T}}
+\newcommand{\bhat}{\hat\beta}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+
+\begin{document}
+
+% ---------- title page ----------
+\begin{titlepage}
+\centering
+\vspace*{0.5cm}
+\ifx\LogoFile\empty\else\includegraphics[width=\LogoWidth]{\LogoFile}\par\fi
+\vspace{1.6cm}
+{\large\bfseries \ReportType\par}
+\vspace{0.5cm}
+{\LARGE\bfseries \ReportTitle\par}
+\vspace{1.2cm}
+{\large \CourseCode\ -- \CourseName\par}
+\vspace{1.2cm}
+{\bfseries Submitted by\par}
+\vspace{0.3cm}
+\BatchInfo\par
+\vspace{0.5cm}
+{\begin{tabular}{@{}ll@{}}\StudentList\end{tabular}\par}
+\vspace{1.2cm}
+{\bfseries \FacilitatorRole\par}
+\FacilitatorName\par
+\FacilitatorDesignation\par
+\vfill
+{\large\bfseries \Department\par}
+\vspace{0.25cm}
+{\large\bfseries \Programme\par}
+\vspace{0.25cm}
+{\large\bfseries \College\par}
+\vspace{0.25cm}
+{\large\bfseries \AcademicYear\par}
+\end{titlepage}
+
+% ---------- front matter ----------
+\pagenumbering{roman}
+\setcounter{page}{2}
+\tableofcontents
+\clearpage
+\listoffigures
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_problem}
+\input{sections/04_outcomes}
+\input{sections/05_sdg}
+\input{sections/06_solution}
+\input{sections/07_conclusion}
+
+\bibliography{references}
+
+\end{document}

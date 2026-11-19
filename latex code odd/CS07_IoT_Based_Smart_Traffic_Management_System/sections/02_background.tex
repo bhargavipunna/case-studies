@@ -1,0 +1,37 @@
+\section{Theoretical Background and IoT Protocol Foundations}
+
+\subsection{Sensor Transduction and Signal Conditioning}
+At the foundational perception layer, physical phenomena are transduced into calibrated electrical potentials. The governing mathematical transduction relationship is characterized by:
+\begin{equation}
+  k(t) = \frac{N(t)}{L_{\text{segment}}}, \quad G_i = \max\left(G_{\min}, \min\left(G_{\max}, \frac{k_i}{\sum_j k_j} \cdot C_{\text{cycle}}\right)\right)
+\label{eq:core_math}
+\end{equation}
+To suppress high-frequency thermal noise and 50/60 Hz electromagnetic hum, raw analog signals undergo active analog filtering followed by oversampled analog-to-digital conversion (ADC). Digital low-pass Butterworth filters and finite impulse response (FIR) moving-average windows are executed at the micro-controller register level prior to packet encapsulation.
+
+\subsection{Low-Power Wireless Networking and Protocols}
+IoT edge topologies demand energy-optimized communications. Table~\ref{tab:proto_comp} compares prevailing wireless stacks across range, payload, and power consumption profiles.
+\begin{table}[H]
+\centering
+\caption{Comparative Characteristics of Prominent IoT Communication Protocols.}
+\label{tab:proto_comp}
+\begin{tabularx}{\linewidth}{lXXXX}
+\toprule
+\textbf{Protocol} & \textbf{PHY / MAC Standard} & \textbf{Typical Range} & \textbf{Data Rate} & \textbf{Power Profile} \\
+\midrule
+LoRaWAN & Sub-GHz Chirp Spread Spectrum & 5 -- 15 km & 0.3 -- 50 kbps & Ultra-Low (10+ yr battery) \\
+BLE (Bluetooth 5.0) & 2.4 GHz GFSK Frequency Hopping & 10 -- 100 m & 1 -- 2 Mbps & Very Low (Coin Cell) \\
+NB-IoT (Cellular) & 3GPP Licensed Spectrum & 10 -- 25 km & 20 -- 200 kbps & Medium-Low (SIM-based) \\
+ZigBee (802.15.4) & 2.4 GHz DSSS Mesh & 10 -- 75 m & 250 kbps & Low (Multi-Hop) \\
+Wi-Fi (802.11ah/n) & 2.4 / 5 GHz OFDM & 30 -- 100 m & 11 -- 150 Mbps & High (Mains / Heavy Bat.) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+At the application layer, lightweight publish-subscribe protocols such as Message Queuing Telemetry Transport (MQTT) and Constrained Application Protocol (CoAP) minimize transport overhead. MQTT establishes persistent TCP connections with a minimalist 2-byte header, offering Quality of Service (QoS 0, 1, 2) delivery guarantees over unreliable links \cite{bahga2014internet}.
+
+\subsection{Edge Computing and Energy Harvesting Architecture}
+To extend remote node lifespans to multiple years, edge devices cycle aggressively between active sensing states and deep-sleep quiescent regimes. The average current consumption $I_{\text{avg}}$ over an operational cycle $T_{\text{cycle}}$ is derived as:
+\begin{equation}
+  I_{\text{avg}} = \frac{I_{\text{active}} \cdot T_{\text{active}} + I_{\text{sleep}} \cdot (T_{\text{cycle}} - T_{\text{active}})}{T_{\text{cycle}}}
+\end{equation}
+By constraining active transmission bursts to $T_{\text{active}} \le 150\text{ ms}$ and optimizing sleep current $I_{\text{sleep}} < 15\,\mu\text{A}$, battery life exceeds 36 months on standard lithium iron phosphate (LiFePO4) storage cells supplemented with miniature photovoltaic energy harvesting.

@@ -6,5 +6,9 @@
 !pdfs/**
 !zip_files/
 !zip_files/**
+!pdf odd/
+!pdf odd/**
+!latex code odd/
+!latex code odd/**
 !README.md
 !.gitignore

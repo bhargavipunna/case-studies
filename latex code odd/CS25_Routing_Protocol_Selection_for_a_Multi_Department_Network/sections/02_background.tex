@@ -1,0 +1,41 @@
+\section{Theoretical Background and Network Protocol Principles}
+
+\subsection{Layered Architecture and Governing Formulations}
+Computer networks operate under the standardized 7-layer OSI and 4-layer TCP/IP architectural paradigms \cite{stallings2017data}. The fundamental mathematical models governing transport dynamics and stateful tracking in this case study are formulated as:
+\begin{equation}
+  D(v) = \min_{u} \{D(u) + c(u, v)\}, \quad \text{Cost} = \frac{\text{Reference Bandwidth}}{\text{Interface Bandwidth}} = \frac{10^8}{\text{BW}_{\text{bps}}}
+\label{eq:core_math}
+\end{equation}
+with BGP path selection evaluated across weight, local preference, and AS-Path length metrics.
+At the transport layer, reliable data delivery is enforced via cumulative acknowledgments, sliding window flow control, and dynamic congestion control algorithms. The sender's transmission rate is constrained by:
+\begin{equation}
+  \text{Effective Window} = \min(\text{cwnd}, \text{rwnd})
+\end{equation}
+where $\text{cwnd}$ denotes the sender's dynamically estimated congestion window and $\text{rwnd}$ represents the receiver's advertised buffer space.
+
+\subsection{Protocol Mechanics and State Transitions}
+Table~\ref{tab:layer_comp} contrasts the functional responsibilities across the core communication layers investigated.
+\begin{table}[H]
+\centering
+\caption{Core Network Protocol Stack Layer Functions and Associated Standards.}
+\label{tab:layer_comp}
+\begin{tabularx}{\linewidth}{lXXXX}
+\toprule
+\textbf{OSI Layer} & \textbf{Primary Function} & \textbf{Core Protocols} & \textbf{Addressing Scheme} & \textbf{Data Unit (PDU)} \\
+\midrule
+Layer 2 (Data Link) & Node-to-node framing \& MAC access & Ethernet (802.3), Wi-Fi (802.11) & 48-Bit Hardware MAC & Frame \\
+Layer 3 (Network) & Logical routing \& packet delivery & IPv4, IPv6, ICMP, OSPF, BGP & 32/128-Bit IP Address & Packet \\
+Layer 4 (Transport) & Process-to-process communication & TCP, UDP, QUIC & 16-Bit Port Numbers & Segment / Datagram \\
+Layer 7 (Application) & End-user network application services & HTTP/3, DNS, SSH, TLS 1.3 & URI / Service Socket & Message / Stream \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+In stateful firewall inspection, the engine tracks TCP connection states through a deterministic finite automaton (DFA) encompassing \texttt{LISTEN}, \texttt{SYN\_SENT}, \texttt{SYN\_RECEIVED}, \texttt{ESTABLISHED}, \texttt{FIN\_WAIT}, and \texttt{TIME\_WAIT}. Ingress packets violating sequence number windows or arriving with invalid flag combinations (e.g., \texttt{SYN+FIN} or \texttt{NULL} scans) are instantaneously dropped prior to socket binding \cite{roesch1999snort}.
+
+\subsection{Routing Convergence and Shortest Path Optimization}
+In interior gateway routing, Dijkstra's algorithm computes the shortest path tree rooted at router $s$. Let $G=(V, E)$ represent the network graph where vertices denote routers and directed edges represent communication links with positive weights $c(u, v) = 10^8 / \text{BW}_{\text{bps}}$. The algorithm maintains a set of visited nodes $S$, iteratively extracting the unvisited vertex $u \notin S$ minimizing $D(u)$ and relaxing all outgoing incident edges:
+\begin{equation}
+  D(v) = \min(D(v), D(u) + c(u, v))
+\end{equation}
+Executing this optimization within hierarchical OSPF multi-area boundaries restricts link-state advertisement (LSA) flooding within individual areas, guaranteeing sub-second routing convergence across campus cores.

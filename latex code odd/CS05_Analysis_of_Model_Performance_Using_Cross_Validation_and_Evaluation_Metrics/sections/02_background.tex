@@ -1,0 +1,26 @@
+\section{Theoretical Background and Mathematical Formulations}
+
+\subsection{Foundational Formulation and Assumptions}
+Consider an empirical dataset $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^n$, where each feature vector $x_i \in \mathbb{R}^p$ represents an independent observation and $y_i \in \mathcal{Y}$ denotes the corresponding response variable. The core mathematical framework governing this study is defined by:
+\begin{equation}
+  \text{CV}_{(K)} = \frac{1}{K} \sum_{k=1}^K \mathcal{L}(f_{-k}, \mathcal{D}_k), \quad \text{MCC} = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}
+\label{eq:core_math}
+\end{equation}
+formulating cross-validation risk estimation alongside Matthew's Correlation Coefficient for imbalanced evaluation.
+In classical linear and statistical estimation, the parameters $\beta$ are determined by minimizing an empirical risk functional:
+\begin{equation}
+  \mathcal{L}(\beta) = \frac{1}{2n} \sum_{i=1}^n \ell(f(x_i; \beta), y_i) + \Omega(\beta)
+\end{equation}
+where $\ell(\cdot)$ signifies the point-wise discrepancy loss (e.g., quadratic error or negative log-likelihood) and $\Omega(\beta)$ denotes an optional structural penalty that restricts parameter complexity \cite{bishop2006}.
+
+\subsection{Decomposition and Algorithmic Geometry}
+To comprehend the underlying inductive bias, we examine the structural decomposition of the parameter space. Under orthogonal transformations or singular value decomposition (SVD) of the design matrix $X = U D V^T$, the estimator shrinks parameter components along the principal axes characterized by small singular values $d_j$. Specifically, components with $d_j^2 \ll \lambda$ undergo severe attenuation, filtering out noise dimensions while preserving signal-dominant directions \cite{hoerl1970}.
+
+Furthermore, from a Bayesian perspective, introducing an $L_2$ regularization penalty corresponds precisely to imposing an isotropic Gaussian prior over the weight vector, $\beta \sim \mathcal{N}(0, \tau^2 I_p)$. The maximum a posteriori (MAP) estimate aligns directly with the regularized objective where the penalty parameter $\lambda = \sigma_\epsilon^2 / \tau^2$ reflects the ratio of observation noise variance to prior weight variance \cite{murphy2012}.
+
+\subsection{Analytical Diagnostics and Metric Space}
+The assessment of generalization performance requires separating irreducible stochastic noise from model-induced approximation errors. The Expected Prediction Error (EPE) at a query point $x_0$ decomposes as:
+\begin{equation}
+  \text{EPE}(x_0) = \mathbb{E}_{\mathcal{D}, \epsilon} \left[ (y - \hat{f}(x_0))^2 \right] = \sigma_\epsilon^2 + \underbrace{\left( f(x_0) - \mathbb{E}[\hat{f}(x_0)] \right)^2}_{\text{Bias}^2} + \underbrace{\mathbb{E}\left[ (\hat{f}(x_0) - \mathbb{E}[\hat{f}(x_0)])^2 \right]}_{\text{Variance}}
+\end{equation}
+where $\sigma_\epsilon^2 = \text{Var}(\epsilon)$ represents the irreducible lower bound on prediction accuracy. Minimizing this composite error requires orchestrating a delicate balance: models that are excessively rigid incur excessive bias, whereas unconstrained, over-parameterized models suffer from variance explosion.

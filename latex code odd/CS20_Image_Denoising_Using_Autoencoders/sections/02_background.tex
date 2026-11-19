@@ -1,0 +1,29 @@
+\section{Theoretical Background and Neural Network Formulations}
+
+\subsection{Mathematical Principles and Optimization Dynamics}
+The core mathematical formulation governing the forward and backward passes of the architecture is defined by:
+\begin{equation}
+  \min_{\theta} \frac{1}{N} \sum_{i=1}^N \| f_{\theta}(\tilde{x}_i) - x_i \|_2^2 + \lambda (1 - \text{SSIM}(f_{\theta}(\tilde{x}_i), x_i))
+\label{eq:core_math}
+\end{equation}
+where $\text{SSIM}(x, y) = \frac{(2\mu_x \mu_y + c_1)(2\sigma_{xy} + c_2)}{(\mu_x^2 + \mu_y^2 + c_1)(\sigma_x^2 + \sigma_y^2 + c_2)}$.
+In deep architectures with $L$ sequential parametric layers, the composite mapping $f(x) = f_L(f_{L-1}(\dots f_1(x)))$ is optimized via stochastic gradient descent (SGD) or adaptive moment estimation (Adam). The parameter update for weight tensor $W^{(l)}$ at time step $t$ follows:
+\begin{equation}
+  m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t, \quad v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2, \quad W_t = W_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t
+\end{equation}
+where $g_t = \nabla_W \mathcal{L}$ denotes the empirical gradient, and $\hat{m}_t, \hat{v}_t$ represent bias-corrected first and second moment vectors.
+
+\subsection{Vanishing/Exploding Gradients and Structural Solutions}
+In deep convolutional and recurrent architectures, backpropagating gradients through long computational chains risks exponential vanishing or explosion:
+\begin{equation}
+  \frac{\partial \mathcal{L}}{\partial h_1} = \frac{\partial \mathcal{L}}{\partial h_T} \prod_{k=1}^{T-1} \frac{\partial h_{k+1}}{\partial h_k} = \frac{\partial \mathcal{L}}{\partial h_T} \prod_{k=1}^{T-1} \text{diag}(1 - \tanh^2(a_{k+1})) W^T
+\end{equation}
+If the spectral radius $\rho(W) < 1$, gradients decay toward zero exponentially as $T$ increases, blinding the network to long-range dependencies. Conversely, if $\rho(W) > 1$, gradients explode. Residual skip connections ($x + \mathcal{F}(x)$) and gated recurrent cells (LSTM constant error carousels) resolve this by providing an additive gradient identity highway $\frac{\partial (x + \mathcal{F})}{\partial x} = I + \frac{\partial \mathcal{F}}{\partial x}$, ensuring sustained gradient backpropagation across hundreds of layers \cite{he2016deep, hochreiter1997long}.
+
+\subsection{Regularization and Generalization Bounds}
+To prevent over-parameterized neural networks from memorizing training noise, modern architectural regularization techniques are integrated:
+\begin{itemize}
+  \item \textbf{Batch Normalization:} Normalizes layer inputs across mini-batches $\hat{x} = \frac{x - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}$, smoothing the loss landscape and accelerating convergence.
+  \item \textbf{Spatial Dropout:} Randomly zeroes entire feature channels during training with probability $p$, breaking co-adaptation between adjacent convolutional kernels.
+  \item \textbf{Weight Decay ($L_2$):} Adds a quadratic penalty $\frac{\lambda}{2} \|W\|_2^2$ directly to the loss, penalizing large weights and constraining effective model capacity.
+\end{itemize}

@@ -1,0 +1,46 @@
+\section{Problem Statement and End-to-End Pipeline Architecture}
+
+\subsection{Operational Challenges}
+The deployment of Social Media Sentiment Analysis in institutional and enterprise settings encounters Colloquial internet slang, sarcasms, negation reversals (e.g., 'not bad at all'), multilingual transliteration, and high-velocity streaming volume causing processing backpressure.. The complete system architecture must maintain high packet delivery reliability, protect data in transit via cryptographic primitives, and deliver deterministic response latency.
+
+\subsection{System Pipeline Architecture}
+Figure~\ref{fig:pipeline} outlines the comprehensive data analytics lifecycle designed for this investigation. The modular architecture comprises Ingestion, Preprocessing, Algorithmic Engine, Evaluation, and Presentation tiers.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{\begin{tikzpicture}[
+    block/.style={rectangle, draw=black!80, fill=yellow!12, thick, rounded corners, minimum height=1.1cm, text width=2.5cm, font=\footnotesize},
+    arr/.style={-{Stealth[length=2mm]}, thick}
+]
+\node[block, align=center] (n1) at (0,0) {1. Streaming Text Ingest\\Twitter API \& Reddit Stream};
+\node[block, align=center] (n2) at (3.2,0) {2. Text Normalization\\Regex, Emojis \& Slang Dict};
+\node[block, align=center] (n3) at (6.4,0) {3. Linguistic Parsing\\Spacy Tokenize \& Lemmatize};
+\node[block, align=center] (n4) at (9.6,0) {4. Lexicon Scoring\\VADER Sentiment Intensity};
+\node[block, align=center] (n5) at (12.8,0) {5. Context Embeddings\\Transformer RoBERTa Tokenizer};
+\node[block, align=center] (n6) at (12.8,-2.2) {6. Sequence Classifier\\BiLSTM with Attention};
+\node[block, align=center] (n7) at (9.6,-2.2) {7. Polarity Aggregator\\Pos / Neu / Neg Probability};
+\node[block, align=center] (n8) at (6.4,-2.2) {8. Aspect Extraction\\Topic Modeling (BERTopic)};
+\node[block, align=center] (n9) at (3.2,-2.2) {9. Real-Time Alert\\PR Crisis Spike Trigger};
+\node[block, align=center] (n10) at (0,-2.2) {10. Brand KPI Dashboard\\Actionable Consumer Insights};
+\draw[arr] (n1) -- (n2);
+\draw[arr] (n2) -- (n3);
+\draw[arr] (n3) -- (n4);
+\draw[arr] (n4) -- (n5);
+\draw[arr] (n5) -- (n6);
+\draw[arr] (n6) -- (n7);
+\draw[arr] (n7) -- (n8);
+\draw[arr] (n8) -- (n9);
+\draw[arr] (n9) -- (n10);
+\end{tikzpicture}}
+\caption{End-to-End Data Analytics Pipeline and Architecture for Social Media Sentiment Analysis.}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Detailed Pipeline Specifications}
+\begin{enumerate}
+  \item \textbf{Data Lake Ingestion Layer:} Connects to enterprise databases, streaming APIs, and flat-file repositories, executing automated schema inference and change-data-capture (CDC).
+  \item \textbf{Wrangling and Cleansing:} Implements multivariate imputation using chained equations (MICE), eliminates duplicate records, and encodes categorical factors via target encoding.
+  \item \textbf{Analytical / Predictive Modeling:} Fits tuned supervised or econometric models using nested cross-validation to prevent information leakage.
+  \item \textbf{Post-Hoc Model Explainability:} Leverages SHAP (SHapley Additive exPlanations) values to provide local and global interpretability for individual decision outputs.
+  \item \textbf{Decision Interface \& Dashboard:} Delivers responsive, low-latency visual analytics via interactive dashboards, triggering automated email/webhook notifications upon KPI breach.
+\end{enumerate}

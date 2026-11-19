@@ -1,0 +1,28 @@
+\section{Theoretical Background and Analytical Foundations}
+
+\subsection{Mathematical Modeling and Governing Formulations}
+The analytical foundations underpinning this case study are formulated through the following statistical relationship:
+\begin{equation}
+  \lambda(t|x) = \lambda_0(t) \exp(\beta^T x), \quad P(\text{Event} \le t) = 1 - S_0(t)^{\exp(\sum \beta_i (x_i - \bar{x}_i))}
+\label{eq:core_math}
+\end{equation}
+In statistical data analytics, data distributions must be evaluated for multivariate normality, homoscedasticity, and absence of multicollinearity. Feature distributions exhibiting positive skewness undergo logarithmic or Box-Cox transformations:
+\begin{equation}
+  y^{(\lambda)} = \begin{cases} \frac{y^\lambda - 1}{\lambda} & \text{if } \lambda \neq 0 \\ \ln(y) & \text{if } \lambda = 0 \end{cases}
+\end{equation}
+This transformation normalizes residuals and stabilizes variance, ensuring that linear and gradient-based models converge optimally \cite{wickham2016r}.
+
+\subsection{Exploratory Data Analysis and Dimensionality Reduction}
+Before applying inferential modeling, high-dimensional observational spaces are analyzed via Principal Component Analysis (PCA) and Uniform Manifold Approximation and Projection (UMAP). For a standardized data matrix $X \in \mathbb{R}^{n \times p}$, the empirical covariance matrix $\Sigma = \frac{1}{n} X^T X$ is spectral-decomposed:
+\begin{equation}
+  \Sigma = V \Lambda V^T = \sum_{j=1}^p \lambda_j v_j v_j^T
+\end{equation}
+The eigenvalues $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_p$ quantify the variance explained along each orthogonal eigenvector axis $v_j$. Retaining the top $k$ components such that $\frac{\sum_{i=1}^k \lambda_i}{\sum_{j=1}^p \lambda_j} \ge 0.90$ effectively condenses high-dimensional feature spaces while preserving $90\%$ of cumulative signal variance.
+
+\subsection{Evaluation Metrics in Data Analytics}
+Depending on whether the operational task is classification, time-series forecasting, or graphical communication, specialized objective criteria are deployed:
+\begin{itemize}
+  \item \textbf{Forecasting Accuracy:} Evaluated via Mean Absolute Percentage Error ($\text{MAPE} = \frac{100\%}{n} \sum \left| \frac{y_t - \hat{y}_t}{y_t} \right|$) and Root Mean Squared Error ($\text{RMSE} = \sqrt{\frac{1}{n} \sum (y_t - \hat{y}_t)^2}$).
+  \item \textbf{Classification Concordance:} Evaluated via Area Under the Receiver Operating Characteristic Curve (ROC-AUC) and Cohen's Kappa ($\kappa = \frac{p_o - p_e}{1 - p_e}$), correcting for chance agreement.
+  \item \textbf{Visual Efficiency:} Assessed via Edward Tufte's Data-Ink Ratio, prioritizing non-erasable substantive information over decorative chart elements \cite{tufte2001visual}.
+\end{itemize}
